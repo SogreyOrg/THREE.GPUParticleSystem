@@ -1,6 +1,6 @@
-var THREE = require('three');
-// var dat = require('dat.gui');
-THREE.GPUParticleSystem = require('../GPUParticleSystem');
+// var THREE = require('three');
+// // var dat = require('dat.gui');
+// THREE.GPUParticleSystem = require('../GPUParticleSystem');
 
 var camera, tick = 0,
   scene, renderer, clock = new THREE.Clock(true),

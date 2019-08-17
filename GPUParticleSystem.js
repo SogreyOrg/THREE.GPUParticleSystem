@@ -17,7 +17,7 @@
 
 var THREE = THREE || require('three');
 
-THREE.GPUParticleSystem = function(options) {
+THREE.GPUParticleSystem = function (options) {
 
 	var self = this;
 	options = options || {};
@@ -203,7 +203,7 @@ THREE.GPUParticleSystem = function(options) {
 		self.rand.push(Math.random() - 0.5);
 	}
 
-	self.random = function() {
+	self.random = function () {
 		return ++i >= self.rand.length ? self.rand[i = 1] : self.rand[i];
 	};
 
@@ -250,7 +250,7 @@ THREE.GPUParticleSystem = function(options) {
 	// extend Object3D
 	THREE.Object3D.apply(this, arguments);
 
-	this.init = function() {
+	this.init = function () {
 
 		for (var i = 0; i < self.PARTICLE_CONTAINERS; i++) {
 
@@ -262,7 +262,7 @@ THREE.GPUParticleSystem = function(options) {
 
 	};
 
-	this.spawnParticle = function(options) {
+	this.spawnParticle = function (options) {
 
 		self.PARTICLE_CURSOR++;
 		if (self.PARTICLE_CURSOR >= self.PARTICLE_COUNT) {
@@ -275,7 +275,7 @@ THREE.GPUParticleSystem = function(options) {
 
 	};
 
-	this.update = function(time) {
+	this.update = function (time) {
 		for (var i = 0; i < self.PARTICLE_CONTAINERS; i++) {
 
 			self.particleContainers[i].update(time);
@@ -292,7 +292,7 @@ THREE.GPUParticleSystem.prototype.constructor = THREE.GPUParticleSystem;
 
 
 // Subclass for particle containers, allows for very large arrays to be spread out
-THREE.GPUParticleContainer = function(maxParticles, particleSystem) {
+THREE.GPUParticleContainer = function (maxParticles, particleSystem) {
 
 	var self = this;
 	self.PARTICLE_COUNT = maxParticles || 100000;
@@ -388,7 +388,7 @@ THREE.GPUParticleContainer = function(maxParticles, particleSystem) {
 
 	self.particleShaderMat = self.GPUParticleSystem.particleShaderMat;
 
-	this.init = function() {
+	this.init = function () {
 		self.particleSystem = new THREE.Points(self.particleShaderGeo, self.particleShaderMat);
 		self.particleSystem.frustumCulled = false;
 		this.add(self.particleSystem);
@@ -413,7 +413,7 @@ THREE.GPUParticleContainer = function(maxParticles, particleSystem) {
 	this.offset = 0;
 	this.count = 0;
 
-	this.spawnParticle = function(options) {
+	this.spawnParticle = function (options) {
 
 		options = options || {};
 
@@ -491,7 +491,7 @@ THREE.GPUParticleContainer = function(maxParticles, particleSystem) {
 
 	};
 
-	this.update = function(time) {
+	this.update = function (time) {
 
 		self.time = time;
 		self.particleShaderMat.uniforms['uTime'].value = time;
@@ -500,7 +500,7 @@ THREE.GPUParticleContainer = function(maxParticles, particleSystem) {
 
 	};
 
-	this.geometryUpdate = function() {
+	this.geometryUpdate = function () {
 		if (self.particleUpdate == true) {
 			self.particleUpdate = false;
 
@@ -530,4 +530,5 @@ THREE.GPUParticleContainer = function(maxParticles, particleSystem) {
 THREE.GPUParticleContainer.prototype = Object.create(THREE.Object3D.prototype);
 THREE.GPUParticleContainer.prototype.constructor = THREE.GPUParticleContainer;
 
-module.exports = THREE.GPUParticleSystem;
+if (typeof require == "function")
+	module.exports = THREE.GPUParticleSystem;
